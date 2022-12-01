@@ -8,3 +8,6 @@ export * from './verify-token.js';
 export * from './get-user-data.js';
 export * from './my-account/get.js';
 export * from './my-account/edit.js';
+export * from './entity/add.js';
+export * from './entity/update.js';
+export * from './entity/get.js';
