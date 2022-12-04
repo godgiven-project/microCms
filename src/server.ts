@@ -11,7 +11,8 @@ import {
   pageLogin,
   pageAddEntity,
   pageUpdateEntity,
-  pageGetEntity
+  pageGetEntity,
+  pageDeleteEntity
 } from './page/index.js';
 
 const app = new App();
@@ -40,5 +41,6 @@ app.register('POST', '/VerifyToken', pageVerifyToken);
 app.register('POST', '/Entity/add', pageAddEntity);
 app.register('POST', '/Entity/update', pageUpdateEntity);
 app.register('POST', '/Entity/get', pageGetEntity);
+app.register('POST', '/Entity/delete', pageDeleteEntity);
 
 app.listen();
