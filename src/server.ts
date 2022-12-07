@@ -9,8 +9,10 @@ import {
   pageGetUserData,
   pageVerifyToken,
   pageLogin,
-  pageEditMyAccount,
-  pageGetMyAccount
+  pageAddEntity,
+  pageUpdateEntity,
+  pageGetEntity,
+  pageDeleteEntity
 } from './page/index.js';
 
 const app = new App();
@@ -35,8 +37,10 @@ app.register('POST', '/Register', pageRegister);
 app.register('POST', '/GetUserData', pageGetUserData);
 app.register('POST', '/VerifyToken', pageVerifyToken);
 
-// 4. MyAccount
-app.register('POST', '/MyAccount/edit', pageEditMyAccount);
-app.register('POST', '/MyAccount/get', pageGetMyAccount);
+// 4. Entity
+app.register('POST', '/Entity/add', pageAddEntity);
+app.register('POST', '/Entity/update', pageUpdateEntity);
+app.register('POST', '/Entity/get', pageGetEntity);
+app.register('POST', '/Entity/delete', pageDeleteEntity);
 
 app.listen();

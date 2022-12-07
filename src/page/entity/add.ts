@@ -1,18 +1,18 @@
 import { ServerResponse } from 'http';
-import { requestType } from '../middleware/authentication-user';
+import { requestType } from '../../middleware/authentication-user';
 import { sendResponse, bodyParser } from '@godgiven/type-server';
 import { Database } from '@godgiven/database/json-file.js';
 import { validate } from '@godgiven/validator';
-import { config } from '../config.js';
+import { config } from '../../config.js';
 
 const ssoTable = new Database({
-  name: 'sso',
+  name: 'entity',
   path: config.databasePath
 });
 
 type validateKey = keyof typeof validate;
 
-export const pageRegister = async (request: requestType, response: ServerResponse): Promise<void> =>
+export const pageAddEntity = async (request: requestType, response: ServerResponse): Promise<void> =>
 {
   const params = await bodyParser(request);
   if (params == null)
@@ -27,15 +27,6 @@ export const pageRegister = async (request: requestType, response: ServerRespons
     ...config.validate.base,
     ...config.validate.register
   };
-
-  if (validationList[usernameKey] == null)
-  {
-    validationList[usernameKey] = ['isExist'];
-  }
-  else
-  {
-    validationList[usernameKey].push('isExist');
-  }
 
   if (config.verifyBaseKey === true)
   {
@@ -82,13 +73,13 @@ export const pageRegister = async (request: requestType, response: ServerRespons
   try
   {
     await ssoTable.insert(
-      'user',
+      'crm',
       params,
       params[usernameKey]
     );
     sendResponse(response, 200, {
       ok: true,
-      description: '..:: Welcome ::..'
+      description: `Entity ${params[usernameKey] as string} added`
     });
   }
   catch (error)

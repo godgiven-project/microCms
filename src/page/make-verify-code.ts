@@ -6,7 +6,7 @@ import { config } from '../config.js';
 
 const database = new Database({
   name: 'verification',
-  path: config.databasePath,
+  path: config.databasePath
 });
 /**
  *
@@ -38,7 +38,7 @@ export const pageMakeVerifyCode = async (request: requestType, response: ServerR
       description: 'error',
       data: {
         errorList: ['ParamsIsEmpty']
-      },
+      }
     });
     return;
   }
@@ -49,7 +49,7 @@ export const pageMakeVerifyCode = async (request: requestType, response: ServerR
       description: 'error',
       data: {
         errorList: ['ParamsIsNotValid']
-      },
+      }
     });
   }
   else
@@ -66,7 +66,7 @@ export const pageMakeVerifyCode = async (request: requestType, response: ServerR
         description: 'error',
         data: {
           errorList: ['Password can not verification']
-        },
+        }
       });
     }
     try
@@ -78,18 +78,18 @@ export const pageMakeVerifyCode = async (request: requestType, response: ServerR
           try: 0,
           pass: false
         },
-        params.value.replace(/[/|\\:*?"<>]/g, ''),
+        params.value.replace(/[/|\\:*?"<>]/g, '')
       );
       sendResponse(response, 200, {
         ok: true,
-        description: '..:: Welcome ::..',
+        description: '..:: Welcome ::..'
       });
     }
     catch (error: any)
     {
       sendResponse(response, 200, {
         ok: false,
-        description: error.code,
+        description: error.code
       });
     }
   }
