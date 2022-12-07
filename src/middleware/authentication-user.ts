@@ -6,7 +6,7 @@ import type { IncomingMessage } from 'http';
 
 const ssoTable = new Database({
   name: 'sso',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 interface UserBasic extends Record<string, unknown>

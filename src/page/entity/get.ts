@@ -6,7 +6,7 @@ import { config } from '../../config.js';
 
 const ssoTable = new Database({
   name: 'entity',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 export const pageGetEntity = async (request: requestType, response: ServerResponse): Promise<void> =>
@@ -22,7 +22,7 @@ export const pageGetEntity = async (request: requestType, response: ServerRespon
   const usernameKey: string = config.baseKey;
   const validationList: Record<string, string[]> = {
     ...config.validate.base,
-    ...config.validate.register,
+    ...config.validate.register
   };
 
   if (validationList[usernameKey] == null)
@@ -82,7 +82,7 @@ export const pageGetEntity = async (request: requestType, response: ServerRespon
       description: 'error',
       data: {
         errorList
-      },
+      }
     });
   }
 };

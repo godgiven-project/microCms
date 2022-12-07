@@ -7,7 +7,7 @@ import { config } from '../../config.js';
 
 const ssoTable = new Database({
   name: 'entity',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 type validateKey = keyof typeof validate;
@@ -25,7 +25,7 @@ export const pageAddEntity = async (request: requestType, response: ServerRespon
   const usernameKey: string = config.baseKey;
   const validationList: Record<string, string[]> = {
     ...config.validate.base,
-    ...config.validate.register,
+    ...config.validate.register
   };
 
   if (config.verifyBaseKey === true)
@@ -65,7 +65,7 @@ export const pageAddEntity = async (request: requestType, response: ServerRespon
       description: 'error',
       data: {
         errorList
-      },
+      }
     });
     return;
   }
@@ -79,7 +79,7 @@ export const pageAddEntity = async (request: requestType, response: ServerRespon
     );
     sendResponse(response, 200, {
       ok: true,
-      description: `Entity ${params[usernameKey] as string} added`,
+      description: `Entity ${params[usernameKey] as string} added`
     });
   }
   catch (error)
@@ -90,7 +90,7 @@ export const pageAddEntity = async (request: requestType, response: ServerRespon
       description: 'error',
       data: {
         errorList
-      },
+      }
     });
   }
 };

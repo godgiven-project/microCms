@@ -7,12 +7,12 @@ import { config } from '../config.js';
 
 const verifyTable = new Database({
   name: 'verification',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 const ssoTable = new Database({
   name: 'sso',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 /**
@@ -33,7 +33,7 @@ export const pageVerifyCode = async (request: requestType, response: ServerRespo
       description: 'error',
       data: {
         errorList: ['ParamsIsEmpty']
-      },
+      }
     });
     return;
   }
@@ -44,7 +44,7 @@ export const pageVerifyCode = async (request: requestType, response: ServerRespo
       description: 'error',
       data: {
         errorList: ['ParamsIsNotValid']
-      },
+      }
     });
   }
   else
@@ -88,7 +88,7 @@ export const pageVerifyCode = async (request: requestType, response: ServerRespo
           fieldValue.replace(/[/|\\:*?"<>]/g, ''),
           {
             ...data,
-            pass: true,
+            pass: true
           },
           params.value.replace(/[/|\\:*?"<>]/g, '')
         );

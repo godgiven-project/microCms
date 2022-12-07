@@ -21,8 +21,8 @@ export const config: Config =
   validate: {
     base: {},
     register: {
-      name: ['isExist'],
-    },
+      name: ['isExist']
+    }
   },
   editable: ['name', 'email', 'plan']
 };

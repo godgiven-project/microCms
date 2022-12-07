@@ -7,7 +7,7 @@ import { config } from '../config.js';
 
 const ssoTable = new Database({
   name: 'sso',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 type validateKey = keyof typeof validate;
@@ -25,7 +25,7 @@ export const pageRegister = async (request: requestType, response: ServerRespons
   const usernameKey: string = config.baseKey;
   const validationList: Record<string, string[]> = {
     ...config.validate.base,
-    ...config.validate.register,
+    ...config.validate.register
   };
 
   if (validationList[usernameKey] == null)
@@ -74,7 +74,7 @@ export const pageRegister = async (request: requestType, response: ServerRespons
       description: 'error',
       data: {
         errorList
-      },
+      }
     });
     return;
   }
@@ -88,7 +88,7 @@ export const pageRegister = async (request: requestType, response: ServerRespons
     );
     sendResponse(response, 200, {
       ok: true,
-      description: '..:: Welcome ::..',
+      description: '..:: Welcome ::..'
     });
   }
   catch (error)
@@ -99,7 +99,7 @@ export const pageRegister = async (request: requestType, response: ServerRespons
       description: 'error',
       data: {
         errorList
-      },
+      }
     });
   }
 };

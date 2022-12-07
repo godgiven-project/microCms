@@ -6,12 +6,12 @@ import { config } from '../config.js';
 
 const ssoTable = new Database({
   name: 'sso',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 const database = new Database({
   name: 'verification',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 /**
@@ -35,7 +35,7 @@ export const pageGetVerifyCode = async (request: requestType, response: ServerRe
       description: 'error',
       data: {
         errorList: ['ParamsIsEmpty']
-      },
+      }
     });
     return;
   }
@@ -52,7 +52,7 @@ export const pageGetVerifyCode = async (request: requestType, response: ServerRe
       description: 'error',
       data: {
         errorList: ['ParamsIsNotValid']
-      },
+      }
     });
   }
   else
@@ -73,7 +73,7 @@ export const pageGetVerifyCode = async (request: requestType, response: ServerRe
         }
         const data = await database.findById(
           fieldValue.replace(/[/|\\:*?"<>]/g, ''),
-          params.value.replace(/[/|\\:*?"<>]/g, ''),
+          params.value.replace(/[/|\\:*?"<>]/g, '')
         );
 
         sendResponse(response, 200, {

@@ -6,7 +6,7 @@ import { config } from '../config.js';
 
 const ssoTable = new Database({
   name: 'sso',
-  path: config.databasePath,
+  path: config.databasePath
 });
 /**
  * Make a code for user that can send to him
@@ -28,7 +28,7 @@ export const pageVerifyToken = async (request: requestType, response: ServerResp
       description: 'error',
       data: {
         errorList: ['ParamsIsEmpty']
-      },
+      }
     });
     return;
   }
@@ -45,7 +45,7 @@ export const pageVerifyToken = async (request: requestType, response: ServerResp
       description: 'error',
       data: {
         errorList: ['ParamsIsNotValid']
-      },
+      }
     });
   }
   else

@@ -10,12 +10,12 @@ export const md5 = (contents: string): string => crypto.createHash('md5').update
 
 const verifyTable = new Database({
   name: 'verification',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 const ssoTable = new Database({
   name: 'sso',
-  path: config.databasePath,
+  path: config.databasePath
 });
 
 /**
@@ -39,7 +39,7 @@ export const pageLogin = async (request: requestType, response: ServerResponse):
       description: 'error',
       data: {
         errorList: ['ParamsIsEmpty']
-      },
+      }
     });
     return;
   }
@@ -50,7 +50,7 @@ export const pageLogin = async (request: requestType, response: ServerResponse):
       description: 'error',
       data: {
         errorList: ['ParamsIsNotValid']
-      },
+      }
     });
   }
   else
@@ -135,7 +135,7 @@ export const pageLogin = async (request: requestType, response: ServerResponse):
     {
       sendResponse(response, 200, {
         ok: false,
-        description: error.code,
+        description: error.code
       });
     }
   }
