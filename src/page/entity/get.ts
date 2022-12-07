@@ -1,6 +1,6 @@
 import { ServerResponse } from 'http';
 import { requestType } from '../../middleware/authentication-user';
-import { sendResponse } from '@godgiven/type-server';
+import { sendResponse, bodyParser } from '@godgiven/type-server';
 import { Database } from '@godgiven/database/json-file.js';
 import { config } from '../../config.js';
 
@@ -11,66 +11,41 @@ const ssoTable = new Database({
 
 export const pageGetEntity = async (request: requestType, response: ServerResponse): Promise<void> =>
 {
-  const params: Record<string, unknown> = {};
+  const params = await bodyParser(request);
+  const errorList = [];
+
   if (params == null)
   {
     response.writeHead(500, { 'Content-Type': 'application/json' });
     response.end();
   }
 
-  const errorList = [];
-  const usernameKey: string = config.baseKey;
-  const validationList: Record<string, string[]> = {
-    ...config.validate.base,
-    ...config.validate.register
-  };
-
-  if (validationList[usernameKey] == null)
+  if (params.key == null)
   {
-    validationList[usernameKey] = ['isExist'];
-  }
-  else
-  {
-    validationList[usernameKey].push('isExist');
+    errorList.push('keyIsNotExsist');
   }
 
-  if (config.verifyBaseKey === true)
+  if (errorList.length > 0)
   {
-    if (request.token == null || request.token.loginFiled !== usernameKey)
-    {
-      sendResponse(response, 200, {
-        ok: false,
-        description: 'error',
-        data: {
-          errorList: ['BaseKey doesn\'t verify']
-        }
-      });
-      return;
-    }
-    else
-    {
-      params[usernameKey] = request.token.loginValue;
-    }
-  }
-
-  const input: Record<string, unknown> = {};
-  for (const key of config.editable)
-  {
-    if (params[key] != null)
-    {
-      input[key] = params[key];
-    }
+    sendResponse(response, 200, {
+      ok: false,
+      description: 'error',
+      data: {
+        errorList
+      }
+    });
+    return;
   }
 
   try
   {
     const user = await ssoTable.findById(
       'crm',
-      params[usernameKey] as string
+      params.key as string
     );
     sendResponse(response, 200, {
       ok: true,
-      description: `Profile user ${params[usernameKey] as string}`,
+      description: `Profile user ${params.key as string}`,
       data: user
     });
   }
