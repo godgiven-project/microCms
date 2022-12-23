@@ -2,15 +2,12 @@ import { ServerResponse } from 'http';
 import { requestType } from '../../middleware/authentication-user';
 import { sendResponse, bodyParser } from '@godgiven/type-server';
 import { Database } from '@godgiven/database/json-file.js';
-import { validate } from '@godgiven/validator';
 import { config } from '../../config.js';
 
 const ssoTable = new Database({
   name: 'entity',
   path: config.databasePath
 });
-
-type validateKey = keyof typeof validate;
 
 export const pageAddEntity = async (request: requestType, response: ServerResponse): Promise<void> =>
 {
@@ -21,65 +18,33 @@ export const pageAddEntity = async (request: requestType, response: ServerRespon
     response.end();
   }
 
-  const errorList = [];
-  const usernameKey: string = config.baseKey;
-  const validationList: Record<string, string[]> = {
-    ...config.validate.base,
-    ...config.validate.register
-  };
+  const errorList: string[] = [];
 
-  if (config.verifyBaseKey === true)
+  if (params.id == null)
   {
-    if (request.token == null || request.token.loginFiled !== usernameKey)
-    {
-      sendResponse(response, 200, {
-        ok: false,
-        description: 'error',
-        data: {
-          errorList: ['BaseKey doesn\'t verify']
-        }
-      });
-      return;
-    }
-    else
-    {
-      params[usernameKey] = request.token.loginValue;
-    }
+    errorList.push('SendEntity');
   }
 
-  for (const key in validationList)
+  if (params.entity == null)
   {
-    for (const validateKey of validationList[key])
-    {
-      if (validate[validateKey as validateKey] == null) { continue; }
-      if (validate[validateKey as validateKey](params[key]) === false)
-      {
-        errorList.push(`${key}${validateKey}`);
-      }
-    }
+    errorList.push('SendEntity');
   }
-  if (errorList.length > 0)
+
+  if (params.data == null)
   {
-    sendResponse(response, 200, {
-      ok: false,
-      description: 'error',
-      data: {
-        errorList
-      }
-    });
-    return;
+    errorList.push('SendData');
   }
 
   try
   {
     await ssoTable.insert(
-      'crm',
-      params,
-      params[usernameKey]
+      params.entity,
+      params.data,
+      params.id
     );
     sendResponse(response, 200, {
       ok: true,
-      description: `Entity ${params[usernameKey] as string} added`
+      description: 'DataWasAdded'
     });
   }
   catch (error)

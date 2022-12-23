@@ -20,10 +20,20 @@ export const pageGetEntity = async (request: requestType, response: ServerRespon
     response.end();
   }
 
-  if (params.key == null)
+  if (params.id == null)
   {
-    errorList.push('keyIsNotExsist');
+    errorList.push('SendEntity');
   }
+
+  if (params.entity == null)
+  {
+    errorList.push('SendEntity');
+  }
+
+  // if (params.data == null)
+  // {
+  //   errorList.push('SendData');
+  // }
 
   if (errorList.length > 0)
   {
@@ -39,14 +49,14 @@ export const pageGetEntity = async (request: requestType, response: ServerRespon
 
   try
   {
-    const user = await ssoTable.findById(
-      'crm',
-      params.key as string
+    const data = await ssoTable.findById(
+      params.entity,
+      params.id as string
     );
     sendResponse(response, 200, {
       ok: true,
-      description: `Profile user ${params.key as string}`,
-      data: user
+      description: 'DataWasRead',
+      data
     });
   }
   catch (error)

@@ -12,7 +12,7 @@ const ssoTable = new Database({
 export const pageDeleteEntity = async (request: requestType, response: ServerResponse): Promise<void> =>
 {
   const params = await bodyParser(request);
-  const errorList: string[] = [];
+  const errorList = [];
 
   if (params == null)
   {
@@ -20,9 +20,14 @@ export const pageDeleteEntity = async (request: requestType, response: ServerRes
     response.end();
   }
 
-  if (params.key == null)
+  if (params.id == null)
   {
-    errorList.push('keyIsNotExsist');
+    errorList.push('SendEntity');
+  }
+
+  if (params.entity == null)
+  {
+    errorList.push('SendEntity');
   }
 
   if (errorList.length > 0)
@@ -40,12 +45,12 @@ export const pageDeleteEntity = async (request: requestType, response: ServerRes
   try
   {
     await ssoTable.deleteById(
-      'crm',
-      params.key
+      params.entity,
+      params.id
     );
     sendResponse(response, 200, {
       ok: true,
-      description: `Entity ${params.key as string} Deleted`
+      description: 'DataWasDelete'
     });
   }
   catch (error)
