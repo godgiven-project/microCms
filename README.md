@@ -1,15 +1,16 @@
-# Godgiven/userManagement
+# Godgiven/microEntity
 
-Typescript userManagement microservice with blow service:
+Typescript Entity Management microservice with blow service:
 
-- Authentication ( JWT )
-- User profile
-- Reset Password
-- One time password
+- add
+- update
+- get
+- delete
+- get-all
 
-## Steps to Register or Login
+You can check routs and data in [postman Collection](./postman/microEntity.postman_collection.json)
 
-1. makeVerifyCode
-2. VerifyUser
-3. Check token in ui
-4. Register or login
+## Setup and Run
+
+1. To setup all deps you should run `yarn`.
+2. After that use `yarn w` for run server on the local
