@@ -5,7 +5,8 @@ import {
   pageAddEntity,
   pageUpdateEntity,
   pageGetEntity,
-  pageDeleteEntity
+  pageDeleteEntity,
+  pageGetAllEntity
 } from './page/index.js';
 
 const app = new App();
@@ -22,5 +23,6 @@ app.register('POST', '/add', pageAddEntity);
 app.register('POST', '/update', pageUpdateEntity);
 app.register('POST', '/get', pageGetEntity);
 app.register('POST', '/delete', pageDeleteEntity);
+app.register('POST', '/get-all', pageGetAllEntity);
 
 app.listen();
